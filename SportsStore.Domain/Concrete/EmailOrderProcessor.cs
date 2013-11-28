@@ -19,7 +19,7 @@ namespace SportsStore.Domain.Concrete {
     }
 
     public class EmailOrderProcessor : IOrderProcessor {
-        private EmailSettings emailSettings;
+        private EmailSettings emailSettings ;
 
         public EmailOrderProcessor(EmailSettings settings) {
             emailSettings = settings;
