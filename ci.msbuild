@@ -6,8 +6,8 @@
     <DefineSolutionProperties>false</DefineSolutionProperties>
  
     <!-- General Paths -->
-    <RootPath>C:\Users\nick.wang\.jenkins\workspace\GitHub_Project_Sync_Build</RootPath>
-	<NuGetPath>C:\CIServer</NuGetPath>
+    <RootPath>.</RootPath>
+	  <NuGetPath></NuGetPath>
     <SrcPath>$(RootPath)</SrcPath>
     <Packages>$(SrcPath)\packages</Packages>
   </PropertyGroup>
@@ -17,7 +17,7 @@
   </ItemGroup>
   <Target Name="LoadNuGetPackages">
     <Message Importance="high" Text="Retrieving packages for %(NuGetPackageConfigs.Identity)" />
-    <Exec Command="&quot;$(NuGetPath)\nuget&quot; install &quot;%(NuGetPackageConfigs.Identity)&quot; -o &quot;$(SrcPath)\packages&quot;" />
+    <Exec Command="&quot;nuget&quot; install &quot;%(NuGetPackageConfigs.Identity)&quot; -o &quot;$(SrcPath)\packages&quot;" />
   </Target>
 
   <Target Name="Compile" DependsOnTargets="LoadNuGetPackages">
