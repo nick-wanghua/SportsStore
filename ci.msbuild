@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration>Debug</Configuration>
+    <Platform>AnyCPU</Platform>
+    <DefineSolutionProperties>false</DefineSolutionProperties>
+ 
+    <!-- General Paths -->
+    <RootPath>C:\Users\nick.wang\.jenkins\workspace\GitHub_Project_Sync_Build</RootPath>
+	<NuGetPath>C:\CIServer</NuGetPath>
+    <SrcPath>$(RootPath)</SrcPath>
+    <Packages>$(SrcPath)\packages</Packages>
+  </PropertyGroup>
+  
+    <ItemGroup>
+    <NuGetPackageConfigs Include="$(RootPath)\**\packages.config" />
+  </ItemGroup>
+  <Target Name="LoadNuGetPackages">
+    <Message Importance="high" Text="Retrieving packages for %(NuGetPackageConfigs.Identity)" />
+    <Exec Command="&quot;$(NuGetPath)\nuget&quot; install &quot;%(NuGetPackageConfigs.Identity)&quot; -o &quot;$(SrcPath)\packages&quot;" />
+  </Target>
+
+  <Target Name="Compile" DependsOnTargets="LoadNuGetPackages">
+    <Message Importance="high" Text="Compiling projects"/>
+    <MSBuild Projects="$(SrcPath)\SportsStore.Domain\SportsStore.Domain.csproj"
+             Properties="Configuration=$(Configuration);Platform=$(Platform)" />
+    <MSBuild Projects="$(SrcPath)\SportsStore.WebUI\SportsStore.WebUI.csproj"
+             Properties="Configuration=$(Configuration);Platform=$(Platform)" />
+	<MSBuild Projects="$(SrcPath)\SportsStore.UnitTests\SportsStore.UnitTests.csproj"
+             Properties="Configuration=$(Configuration);Platform=$(Platform)" />
+  </Target>
+
+</Project>
