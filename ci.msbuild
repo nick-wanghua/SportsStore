@@ -7,7 +7,7 @@
  
     <!-- General Paths -->
     <RootPath>.</RootPath>
-	  <NuGetPath></NuGetPath>
+	  <NuGetPath>c:\CIServer</NuGetPath>
     <SrcPath>$(RootPath)</SrcPath>
     <Packages>$(SrcPath)\packages</Packages>
   </PropertyGroup>
@@ -17,7 +17,7 @@
   </ItemGroup>
   <Target Name="LoadNuGetPackages">
     <Message Importance="high" Text="Retrieving packages for %(NuGetPackageConfigs.Identity)" />
-    <Exec Command="&quot;nuget&quot; install &quot;%(NuGetPackageConfigs.Identity)&quot; -o &quot;$(SrcPath)\packages&quot;" />
+    <Exec Command="&quot;$(NuGetPath)\nuget&quot; install &quot;%(NuGetPackageConfigs.Identity)&quot; -o &quot;$(SrcPath)\packages&quot;" />
   </Target>
 
   <Target Name="Compile" DependsOnTargets="LoadNuGetPackages">
